@@ -68,13 +68,37 @@ type FastPayRequest struct {
 }
 
 type FastPayResponse struct {
-	Merchant       string `json:"merchant"`
-	MerchantID     string `json:"merchant_id"`
-	PaymentChannel []struct {
-		PgCode string `json:"pg_code"`
-		PgName string `json:"pg_name"`
-	} `json:"payment_channel"`
-	Response     string `json:"response"`
-	ResponseCode string `json:"response_code"`
-	ResponseDesc string `json:"response_desc"`
+	Response       string           `json:"response"`
+	Merchant       string           `json:"merchant"`
+	MerchantID     string           `json:"merchant_id"`
+	PaymentChannel []PaymentChannel `json:"payment_channel"`
+	ResponseCode   string           `json:"response_code"`
+	ResponseDesc   string           `json:"response_desc"`
+}
+
+type PaymentChannel struct {
+	PgCode string `json:"pg_code"`
+	PgName string `json:"pg_name"`
+}
+
+type InquiryPayment struct {
+	Response          string `json:"response"`
+	BillNo            string `json:"bill_no"`
+	Merchant          string `json:"merchant"`
+	MerchantID        string `json:"merchant_id"`
+	PaymentDate       string `json:"payment_date"`
+	PaymentReff       string `json:"payment_reff"`
+	PaymentStatusCode string `json:"payment_status_code"`
+	PaymentStatusDesc string `json:"payment_status_desc"`
+	ResponseCode      string `json:"response_code"`
+	ResponseDesc      string `json:"response_desc"`
+	TrxID             string `json:"trx_id"`
+}
+
+type InquiryRequest struct {
+	BillNo     string `json:"bill_no"`
+	MerchantID string `json:"merchant_id"`
+	Request    string `json:"request"`
+	Signature  string `json:"signature"`
+	TrxID      string `json:"trx_id"`
 }

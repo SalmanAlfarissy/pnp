@@ -10,7 +10,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func (PaymentService) FastPayHandler(ctx context.Context, req cm.FastPayRequest) (res cm.FastPayResponse) {
+
+func (PaymentService) CallHandler(ctx context.Context, req cm.FastPayRequest) (res cm.FastPayResponse) {
 
 	defer panicRecovery()
 
@@ -20,22 +21,25 @@ func (PaymentService) FastPayHandler(ctx context.Context, req cm.FastPayRequest)
 	pass := cm.Config.Connection.Password
 	data := cm.Config.Connection.Database
 
-	var mySQL = fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", user, pass, host, port, data)
-
-	db, err = sql.Open("mysql", mySQL)
+	var mySQL = fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", user, pass, host, port, data)	
+	
+	db, err = sql.Open("mysql" , mySQL)
 
 	if err != nil {
 		panic(err.Error())
 	}
 
+	
+		
 	var fasResponse cm.FastPayResponse
-	var list cm.PaymentChannel
-
+	var list        cm.PaymentChannel
+	
 	sql := `SELECT
 				pg_code,
 				IFNULL(pg_name,'')
 			FROM list_payment WHERE merchant_id = ?`
 
+		
 	result, err := db.Query(sql, req.MerchantID)
 
 	defer result.Close()
@@ -43,23 +47,25 @@ func (PaymentService) FastPayHandler(ctx context.Context, req cm.FastPayRequest)
 	if err != nil {
 		panic(err.Error())
 	}
-
+	
+	
 	for result.Next() {
-
+		
 		err := result.Scan(&list.PgCode, &list.PgName)
 
 		if err != nil {
 			panic(err.Error())
 		}
 
-		fasResponse.PaymentChannel = append(fasResponse.PaymentChannel, list)
-
+		fasResponse.PaymentChannel = append(fasResponse.PaymentChannel, list)	
+				
 	}
 
+	fasResponse.Response = "Response"
 	fasResponse.Merchant = req.Merchant
 	fasResponse.MerchantID = req.MerchantID
-
-	res = fasResponse
+	
+	res = fasResponse	
 
 	return
 }

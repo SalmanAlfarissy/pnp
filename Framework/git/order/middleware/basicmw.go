@@ -68,3 +68,27 @@ func (mw BasicMiddlewareStruct) FastPayHandler(ctx context.Context, request cm.F
 	return mw.PaymentServices.FastPayHandler(ctx, request)
 
 }
+
+func (mw BasicMiddlewareStruct) CallHandler(ctx context.Context, request cm.FastPayRequest) cm.FastPayResponse {
+
+	defer func(begin time.Time) {
+		log.WithField("execTime", float64(time.Since(begin).Nanoseconds())/float64(1e6)).Info("CallHandler ends")
+	}(time.Now())
+
+	log.WithField("request", request).Info("CallHandler begins")
+
+	return mw.PaymentServices.CallHandler(ctx, request)
+
+}
+
+func (mw BasicMiddlewareStruct) InquiryHandler(ctx context.Context, request cm.InquiryRequest) cm.InquiryPayment {
+
+	defer func(begin time.Time) {
+		log.WithField("execTime", float64(time.Since(begin).Nanoseconds())/float64(1e6)).Info("InquiryHandler ends")
+	}(time.Now())
+
+	log.WithField("request", request).Info("InquiryHandler begins")
+
+	return mw.PaymentServices.InquiryHandler(ctx, request)
+
+}
