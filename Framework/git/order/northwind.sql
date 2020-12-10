@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2020 at 04:58 PM
+-- Generation Time: Dec 10, 2020 at 03:48 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -5215,6 +5215,31 @@ INSERT INTO `test` (`id`, `tgl`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `trips`
+--
+
+CREATE TABLE `trips` (
+  `AirlineName` varchar(50) NOT NULL,
+  `AirportName` varchar(100) NOT NULL,
+  `CityName` varchar(100) NOT NULL,
+  `Currency` varchar(20) NOT NULL,
+  `DepartureDate` varchar(50) NOT NULL,
+  `Description` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `trips`
+--
+
+INSERT INTO `trips` (`AirlineName`, `AirportName`, `CityName`, `Currency`, `DepartureDate`, `Description`) VALUES
+('Etihad Airlines', 'Bandar Udara Internasional Soekarno-Hatta', 'Kota Jakarta Barat', '$', '20/09/2020', 'Jelajah Bumi Para Nabi'),
+('Garuda Indonesia Airlines', 'Bandar Udara Internasional Soekarno-Hatta', 'Kota Jakarta Barat', '$', '15/05/2020', 'Umroh Lailatul Qodar'),
+('Oman Airlines', 'Bandar Udara Internasional Soekarno-Hatta', 'Kota Jakarta Barat', 'IDR', '13/01/2020', 'Umrah Barakah Plus Oman'),
+('Turkish Airlines', 'Bandar Udara Internasional Soekarno-Hatta', 'Kota Jakarta Barat', 'IDR', '11/02/2020', 'Amazing Turkey');
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `vw_sales`
 -- (See below for the actual view)
 --
@@ -5431,6 +5456,12 @@ ALTER TABLE `suppliers`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `trips`
+--
+ALTER TABLE `trips`
+  ADD PRIMARY KEY (`AirlineName`);
 
 --
 -- AUTO_INCREMENT for dumped tables
