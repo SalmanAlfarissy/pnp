@@ -17,3 +17,7 @@
 #==============================||================================
 #Tugas 6 (Framework/git/order)
 #insert ke database (trips)
+
+#==============================||================================
+#Tugas 7 (echo-rest)
+#Membuat CRUD dari Suppliers dan melengkapi CRUD dari employees
